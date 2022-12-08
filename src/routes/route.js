@@ -18,15 +18,9 @@ router.get("/assets",async (req,res)=>{
         let cryptoData = result.data
         let arrData = cryptoData.data
         let sortedData = arrData.sort((a,b)=>b.changePercent24Hr-a.changePercent24Hr)
-        for(i=0;i<sortedData.length;i++){
-            let liveCryto = {}
-            liveCryto.symbol = sortedData[i].symbol
-            liveCryto.name = sortedData[i].name
-            liveCryto.marketCapUsd = sortedData[i].marketCapUsd
-            liveCryto.priceUsd = sortedData[i].priceUsd
-            await cryptoModel.create(liveCryto) 
-        }
-        res.status(200).send({status:true,data:sortedData})
+        await cryptoModel.deleteMany()
+        let finalData = await cryptoModel.create(sortedData)
+        res.status(200).send({status:true,data:finalData})
     } catch (err) {
         return res.status(500).send({error:err.message})
     }

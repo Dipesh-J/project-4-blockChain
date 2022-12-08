@@ -2,11 +2,11 @@ const mongoose = require("mongoose")
 let cryptoSchema = new mongoose.Schema({
     symbol:{
         type:String,
-        // unique:true
+        unique:true
     },
     name:{
         type:String,
-        // unique:true
+        unique:true
     },
     marketCapUsd:{
         type:String
